@@ -2,7 +2,7 @@
 
 import React from 'react'
 import Link from 'next/link'
-import { format } from 'date-fns'
+import { safeFormatDate, safeFormatDateShort } from '../utils/dateUtils'
 
 interface BlogPost {
   id: string
@@ -10,14 +10,13 @@ interface BlogPost {
   slug: string
   excerpt: string
   content: string
-  published_at: string
-  read_time: number
+  publishedAt: string
+  readTime: number
   category: string
   tags: string[]
-  image_url?: string
-  seo_title?: string
-  seo_description?: string
-  view_count: number
+  imageUrl?: string
+  seoTitle?: string
+  seoDescription?: string
 }
 
 export default function BlogList() {
@@ -69,14 +68,8 @@ export default function BlogList() {
     )
   }
 
-  // Get the most recent posts for the sidebar
-  const recentPosts = posts.slice(0, 3)
-  
-  // Get unique categories and their counts
-  const categoryCounts = posts.reduce((acc, post) => {
-    acc[post.category] = (acc[post.category] || 0) + 1
-    return acc
-  }, {} as Record<string, number>)
+  // Get the latest 4 posts for the sidebar
+  const latestPosts = posts.slice(0, 4)
 
   return (
     <section className="bg-white py-16">
@@ -103,10 +96,10 @@ export default function BlogList() {
                 {posts.map((post, index) => (
                   <article key={post.id} className="article-card card-sleek" style={{ animationDelay: `${index * 0.1}s` }}>
                     {/* Featured image */}
-                    {post.image_url && (
+                    {post.imageUrl && (
                       <div className="mb-6">
                         <img
-                          src={post.image_url}
+                          src={post.imageUrl}
                           alt={post.title}
                           className="featured-image hover-glow"
                         />
@@ -132,12 +125,12 @@ export default function BlogList() {
                     </p>
 
                     {/* Article metadata */}
-                    <div className="article-meta">
-                      <span className="publish-date">
-                        {format(new Date(post.published_at), 'MMMM dd, yyyy')}
-                      </span>
+                                            <div className="article-meta">
+                          <span className="publish-date">
+                            {safeFormatDate(post.publishedAt)}
+                          </span>
                       <span className="read-time">
-                        {post.read_time} min read
+                        {post.readTime} min read
                       </span>
                       {post.tags.length > 0 && (
                         <span className="text-sm text-gray-500">
@@ -162,44 +155,54 @@ export default function BlogList() {
 
             {/* Sidebar */}
             <div className="space-y-8">
-              {/* Most recent posts */}
-              {recentPosts.length > 0 && (
-                <div className="card-sleek p-6">
-                  <h3 className="sidebar-heading">Most Recent</h3>
-                  <div className="space-y-4">
-                    {recentPosts.map((post) => (
+              {/* Latest News */}
+              <div className="card-sleek p-6">
+                <h3 className="sidebar-heading">Latest News</h3>
+                <div className="space-y-4">
+                  {latestPosts.length > 0 ? (
+                    latestPosts.map((post) => (
                       <article key={post.id} className="sidebar-article hover-lift">
                         <h4 className="sidebar-title">
-                          <Link href={`/blog/${post.slug}`}>{post.title}</Link>
+                          <Link href={`/blog/${post.slug}`}>
+                            {post.title}
+                          </Link>
                         </h4>
-                        <div className="sidebar-meta">
-                          <span>{format(new Date(post.published_at), 'MMMM dd, yyyy')}</span>
+                                                    <div className="sidebar-meta">
+                              <span>{safeFormatDateShort(post.publishedAt)}</span>
                           <span>•</span>
-                          <span>{post.read_time} min read</span>
+                          <span>{post.readTime} min read</span>
                         </div>
                       </article>
-                    ))}
-                  </div>
+                    ))
+                  ) : (
+                    <div className="text-gray-500 text-sm">
+                      No recent articles available
+                    </div>
+                  )}
                 </div>
-              )}
+              </div>
 
               {/* Categories */}
-              {Object.keys(categoryCounts).length > 0 && (
-                <div className="card-sleek p-6">
-                  <h3 className="sidebar-heading">Categories</h3>
-                  <div className="space-y-2">
-                    {Object.entries(categoryCounts).map(([category, count]) => (
-                      <Link 
-                        key={category}
-                        href={`/category/${category}`} 
-                        className="block text-gray-600 hover:text-black transition-all duration-300 hover:translate-x-2"
-                      >
-                        {category.charAt(0).toUpperCase() + category.slice(1).replace('-', ' ')} ({count})
-                      </Link>
-                    ))}
-                  </div>
+              <div className="card-sleek p-6">
+                <h3 className="sidebar-heading">Categories</h3>
+                <div className="space-y-2">
+                  <Link href="/category/ai" className="block text-gray-600 hover:text-black transition-all duration-300 hover:translate-x-2">
+                    AI & Technology (12)
+                  </Link>
+                  <Link href="/category/online-business" className="block text-gray-600 hover:text-black transition-all duration-300 hover:translate-x-2">
+                    Online Business (8)
+                  </Link>
+                  <Link href="/category/entrepreneurship" className="block text-gray-600 hover:text-black transition-all duration-300 hover:translate-x-2">
+                    Startups (15)
+                  </Link>
+                  <Link href="/category/digital-marketing" className="block text-gray-600 hover:text-black transition-all duration-300 hover:translate-x-2">
+                    Digital Marketing (6)
+                  </Link>
+                  <Link href="/category/tools" className="block text-gray-600 hover:text-black transition-all duration-300 hover:translate-x-2">
+                    Tools & Resources (9)
+                  </Link>
                 </div>
-              )}
+              </div>
 
               {/* Newsletter signup */}
               <div className="card-sleek p-6 bg-gradient-to-br from-gray-50 to-gray-100">

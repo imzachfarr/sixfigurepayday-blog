@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS blog_posts (
   is_published BOOLEAN DEFAULT true,
   view_count INTEGER DEFAULT 0,
   has_backlink BOOLEAN DEFAULT false,
-  backlink_url TEXT DEFAULT 'https://zephryxlabs.com/aiassetaccelerator',
+  backlink_url TEXT DEFAULT 'https://www.zephryxlabs.com/aiassetaccelerator',
   source_url TEXT,
   source_title TEXT,
   ai_generated BOOLEAN DEFAULT true,

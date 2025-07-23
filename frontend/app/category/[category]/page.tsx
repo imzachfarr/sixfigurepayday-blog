@@ -1,10 +1,11 @@
-"use client"
-
 import React from 'react'
 import Link from 'next/link'
-import { format } from 'date-fns'
 import Header from '../../../components/Header'
 import Footer from '../../../components/Footer'
+import BannerAd from '../../../components/BannerAd'
+import { safeFormatDate } from '../../../utils/dateUtils'
+
+
 
 interface BlogPost {
   id: string
@@ -28,61 +29,35 @@ interface CategoryPageProps {
   }
 }
 
-export default function CategoryPage({ params }: CategoryPageProps) {
-  const [posts, setPosts] = React.useState<BlogPost[]>([])
-  const [loading, setLoading] = React.useState(true)
-  const [error, setError] = React.useState<string | null>(null)
-  const [categoryName, setCategoryName] = React.useState('')
+export default async function CategoryPage({ params }: CategoryPageProps) {
+  let posts: BlogPost[] = []
+  let error: string | null = null
+  let categoryName = ''
 
-  React.useEffect(() => {
-    const fetchCategoryPosts = async () => {
-      try {
-        const response = await fetch(`/api/blog/category/${params.category}`)
-        if (!response.ok) {
-          throw new Error('Failed to fetch category posts')
-        }
-        const data = await response.json()
-        setPosts(data.posts || [])
-        
-        // Set category name for display
-        const categoryDisplayNames: Record<string, string> = {
-          'ai': 'AI & Technology',
-          'money-making': 'Money Making',
-          'entrepreneurship': 'Entrepreneurship',
-          'digital-marketing': 'Digital Marketing',
-          'passive-income': 'Passive Income',
-          'online-business': 'Online Business',
-          'tools': 'Tools & Resources'
-        }
-        setCategoryName(categoryDisplayNames[params.category] || params.category)
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'An error occurred')
-      } finally {
-        setLoading(false)
-      }
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5001'}/api/blog/category/${params.category}`)
+    if (!response.ok) {
+      throw new Error('Failed to fetch category posts')
     }
-
-    fetchCategoryPosts()
-  }, [params.category])
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-50">
-        <Header />
-        <main className="pt-24">
-          <section className="py-16">
-            <div className="container-wide">
-              <div className="text-center">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black mx-auto"></div>
-                <p className="text-gray-600 mt-4">Loading articles...</p>
-              </div>
-            </div>
-          </section>
-        </main>
-        <Footer />
-      </div>
-    )
+    const data = await response.json()
+    posts = data.posts || []
+    
+    // Set category name for display
+    const categoryDisplayNames: Record<string, string> = {
+      'ai': 'AI & Technology',
+      'money-making': 'Money Making',
+      'entrepreneurship': 'Entrepreneurship',
+      'digital-marketing': 'Digital Marketing',
+      'passive-income': 'Passive Income',
+      'online-business': 'Online Business',
+      'tools': 'Tools & Resources'
+    }
+    categoryName = categoryDisplayNames[params.category] || params.category
+  } catch (err) {
+    error = err instanceof Error ? err.message : 'An error occurred'
   }
+
+
 
   if (error) {
     return (
@@ -124,6 +99,9 @@ export default function CategoryPage({ params }: CategoryPageProps) {
                 Discover the latest insights, strategies, and tips for {categoryName.toLowerCase()}.
               </p>
             </div>
+
+            {/* Top Banner Ad */}
+            <BannerAd variant="top" />
 
             {posts.length === 0 ? (
               <div className="text-center py-12">
@@ -168,7 +146,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
                         {/* Article metadata */}
                         <div className="article-meta">
                           <span className="publish-date">
-                            {format(new Date(post.published_at), 'MMMM dd, yyyy')}
+                            {safeFormatDate(post.published_at)}
                           </span>
                           <span className="read-time">
                             {post.read_time} min read
@@ -222,6 +200,9 @@ export default function CategoryPage({ params }: CategoryPageProps) {
                 </div>
               </div>
             )}
+
+            {/* Bottom Banner Ad */}
+            <BannerAd variant="bottom" />
           </div>
         </section>
       </main>

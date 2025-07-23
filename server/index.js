@@ -4,6 +4,7 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const compression = require('compression');
 const rateLimit = require('express-rate-limit');
+const path = require('path');
 require('dotenv').config();
 
 const { connectDB } = require('./config/database');
@@ -65,6 +66,27 @@ app.use('/api/blog', blogRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/automation', automationRoutes);
 
+// Serve static files from the Next.js build
+app.use(express.static(path.join(__dirname, '../frontend/out')));
+
+// Handle Next.js routing - serve index.html for all non-API routes
+app.get('*', (req, res, next) => {
+  // Skip API routes
+  if (req.path.startsWith('/api/')) {
+    return next();
+  }
+  
+  // Try to serve the specific file first, then fall back to index.html
+  const filePath = path.join(__dirname, '../frontend/out', req.path);
+  const indexPath = path.join(__dirname, '../frontend/out/index.html');
+  
+  if (require('fs').existsSync(filePath) && require('fs').statSync(filePath).isFile()) {
+    res.sendFile(filePath);
+  } else {
+    res.sendFile(indexPath);
+  }
+});
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
@@ -72,11 +94,6 @@ app.use((err, req, res, next) => {
     error: 'Something went wrong!',
     message: process.env.NODE_ENV === 'development' ? err.message : 'Internal server error'
   });
-});
-
-// 404 handler
-app.use('*', (req, res) => {
-  res.status(404).json({ error: 'Route not found' });
 });
 
 // Start server

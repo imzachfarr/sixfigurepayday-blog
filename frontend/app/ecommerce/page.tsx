@@ -2,9 +2,10 @@
 
 import React from 'react'
 import Link from 'next/link'
-import { format } from 'date-fns'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
+import BannerAd from '../../components/BannerAd'
+import { safeFormatDate } from '../../utils/dateUtils'
 
 interface BlogPost {
   id: string
@@ -31,7 +32,7 @@ export default function EcommercePage() {
     const fetchEcommercePosts = async () => {
       try {
         // Fetch all posts and filter for e-commerce related ones
-        const response = await fetch('/api/blog?limit=50')
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5001'}/api/blog?limit=50`)
         if (!response.ok) {
           throw new Error('Failed to fetch posts')
         }
@@ -130,6 +131,9 @@ export default function EcommercePage() {
               </p>
             </div>
 
+            {/* Top Banner Ad */}
+            <BannerAd variant="top" />
+
             {posts.length === 0 ? (
               <div className="text-center py-12">
                 <p className="text-gray-600 text-lg">No e-commerce articles found. Check back soon!</p>
@@ -173,7 +177,7 @@ export default function EcommercePage() {
                         {/* Article metadata */}
                         <div className="article-meta">
                           <span className="publish-date">
-                            {format(new Date(post.published_at), 'MMMM dd, yyyy')}
+                            {safeFormatDate(post.published_at)}
                           </span>
                           <span className="read-time">
                             {post.read_time} min read
@@ -227,6 +231,9 @@ export default function EcommercePage() {
                 </div>
               </div>
             )}
+
+            {/* Bottom Banner Ad */}
+            <BannerAd variant="bottom" />
           </div>
         </section>
       </main>

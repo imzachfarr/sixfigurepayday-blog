@@ -1,9 +1,12 @@
 import React from 'react'
 import { notFound } from 'next/navigation'
-import { format } from 'date-fns'
 import Link from 'next/link'
 import Header from '../../../components/Header'
 import Footer from '../../../components/Footer'
+import BannerAd from '../../../components/BannerAd'
+import { safeFormatDate, safeFormatDateShort } from '../../../utils/dateUtils'
+
+
 
 interface BlogPost {
   id: string
@@ -29,7 +32,7 @@ interface PageProps {
 
 export default async function BlogPostPage({ params }: PageProps) {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_FRONTEND_URL || 'http://localhost:3000'}/api/blog/${params.slug}`)
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5001'}/api/blog/${params.slug}`)
     
     if (!response.ok) {
       notFound()
@@ -77,10 +80,13 @@ export default async function BlogPostPage({ params }: PageProps) {
                 {post.excerpt}
               </p>
 
+              {/* Top Banner Ad */}
+              <BannerAd variant="top" />
+
               {/* Article metadata */}
               <div className="flex items-center space-x-6 text-sm text-gray-500 border-t border-gray-200 pt-6">
                 <span className="publish-date">
-                  {format(new Date(post.published_at), 'MMMM dd, yyyy')}
+                  {safeFormatDate(post.published_at)}
                 </span>
                 <span className="read-time">
                   {post.read_time} min read
@@ -151,6 +157,9 @@ export default async function BlogPostPage({ params }: PageProps) {
                     </button>
                   </div>
                 </div>
+
+                {/* Bottom Banner Ad */}
+                <BannerAd variant="bottom" />
               </div>
 
               {/* Sidebar */}
@@ -186,7 +195,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                               {relatedPost.title}
                             </h4>
                             <div className="sidebar-meta">
-                              <span>{format(new Date(relatedPost.published_at), 'MMM dd, yyyy')}</span>
+                              <span>{safeFormatDateShort(relatedPost.published_at)}</span>
                               <span>•</span>
                               <span>{relatedPost.read_time} min read</span>
                             </div>

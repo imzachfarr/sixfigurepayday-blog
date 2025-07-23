@@ -20,22 +20,12 @@ WORKDIR /app
 
 # Copy package files
 COPY package*.json ./
-COPY frontend/package*.json ./frontend/
-COPY server/package*.json ./server/
 
 # Install dependencies
-RUN npm ci --only=production && \
-    cd frontend && npm ci && \
-    cd ../server && npm ci --only=production
+RUN npm ci --only=production
 
 # Copy source code
 COPY . .
-
-# Build frontend
-RUN cd frontend && npm run build
-
-# Remove dev dependencies from frontend after build
-RUN cd frontend && npm prune --production
 
 # Expose port
 EXPOSE 5001

@@ -42,11 +42,11 @@ export default function Footer() {
               <Link href="/category/ai" className="footer-link block">
                 AI & Technology
               </Link>
-              <Link href="/category/money-making" className="footer-link block">
+              <Link href="/category/online-business" className="footer-link block">
                 Online Business
               </Link>
               <Link href="/category/entrepreneurship" className="footer-link block">
-                Entrepreneurship
+                Startups
               </Link>
               <Link href="/category/digital-marketing" className="footer-link block">
                 Digital Marketing
@@ -102,7 +102,7 @@ export default function Footer() {
         <div className="border-t border-gray-300 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-sm text-gray-500 mb-4 md:mb-0">
-              © 2024 SixFigurePayday. All rights reserved.
+              © 2025 SixFigurePayday. All rights reserved.
             </div>
             <div className="flex space-x-6 text-sm">
               <Link href="/sitemap" className="footer-link">

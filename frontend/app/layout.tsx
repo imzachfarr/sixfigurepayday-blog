@@ -15,6 +15,11 @@ export const metadata: Metadata = {
   authors: [{ name: 'SixFigurePayday' }],
   creator: 'SixFigurePayday',
   publisher: 'SixFigurePayday',
+  icons: {
+    icon: '/favicon.png',
+    shortcut: '/favicon.png',
+    apple: '/favicon.png',
+  },
   formatDetection: {
     email: false,
     address: false,

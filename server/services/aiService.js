@@ -73,7 +73,7 @@ class AIService {
 
   buildPrompt(sourceContent, sourceTitle, includeBacklink) {
     const backlinkInstruction = includeBacklink 
-      ? `IMPORTANT: This post MUST include a natural backlink to https://zephryxlabs.com/aiassetaccelerator. Frame it as a valuable resource or next step for readers.`
+      ? `IMPORTANT: This post MUST include a natural backlink to https://www.zephryxlabs.com/aiassetaccelerator. Frame it as a valuable resource or next step for readers.`
       : '';
 
     return `Rewrite the following content about "${sourceTitle}" in an engaging, slightly irreverent tone aimed at entrepreneurs interested in AI and online money-making.
