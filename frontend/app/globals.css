@@ -1,0 +1,265 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap');
+
+@layer base {
+  html {
+    font-family: 'Source Sans Pro', system-ui, sans-serif;
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-white text-gray-900;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+  }
+
+  /* Smooth transitions for all interactive elements */
+  * {
+    transition: all 0.2s ease-in-out;
+  }
+}
+
+@layer components {
+  .container {
+    @apply max-w-6xl mx-auto px-4;
+  }
+
+  .container-wide {
+    @apply max-w-7xl mx-auto px-4;
+  }
+  
+  .news-header {
+    @apply border-b-2 border-black bg-white shadow-sm backdrop-blur-sm;
+  }
+
+  .news-logo {
+    @apply text-3xl font-bold text-black font-serif hover:scale-105 transform;
+  }
+
+  .news-nav {
+    @apply text-sm font-semibold text-gray-700 hover:text-black transition-all duration-300 relative;
+  }
+
+  .news-nav::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300;
+  }
+
+  .news-nav:hover::after {
+    @apply w-full;
+  }
+
+  .news-nav-active {
+    @apply text-black;
+  }
+
+  .news-nav-active::after {
+    @apply w-full;
+  }
+
+  .hero-headline {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold text-black leading-tight font-serif bg-gradient-to-r from-black via-gray-800 to-black bg-clip-text text-transparent;
+  }
+
+  .hero-subheadline {
+    @apply text-xl md:text-2xl text-gray-600 leading-relaxed font-serif;
+  }
+
+  .article-card {
+    @apply border-b border-gray-200 pb-8 mb-8 hover:shadow-lg hover:bg-gray-50 p-6 rounded-lg transition-all duration-300;
+  }
+
+  .article-title {
+    @apply text-2xl md:text-3xl font-bold text-black leading-tight font-serif hover:text-gray-700 transition-all duration-300;
+  }
+
+  .article-title:hover {
+    @apply transform translate-x-1;
+  }
+
+  .article-excerpt {
+    @apply text-lg text-gray-600 leading-relaxed mt-3;
+  }
+
+  .article-meta {
+    @apply text-sm text-gray-500 mt-4 flex items-center space-x-4;
+  }
+
+  .category-tag {
+    @apply text-xs font-semibold text-black uppercase tracking-wider bg-gradient-to-r from-gray-100 to-gray-200 px-3 py-1 rounded-full shadow-sm;
+  }
+
+  .read-time {
+    @apply text-sm text-gray-500;
+  }
+
+  .publish-date {
+    @apply text-sm text-gray-500;
+  }
+
+  .featured-image {
+    @apply w-full h-64 md:h-80 object-cover mb-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300;
+  }
+
+  .sidebar-heading {
+    @apply text-xl font-bold text-black font-serif mb-4 relative;
+  }
+
+  .sidebar-heading::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-12 h-0.5 bg-gradient-to-r from-black to-gray-400;
+  }
+
+  .sidebar-article {
+    @apply border-b border-gray-200 pb-4 mb-4 last:border-b-0 hover:bg-gray-50 p-3 rounded-lg transition-all duration-300;
+  }
+
+  .sidebar-title {
+    @apply text-lg font-semibold text-black leading-tight hover:text-gray-700 transition-all duration-300;
+  }
+
+  .sidebar-title:hover {
+    @apply transform translate-x-1;
+  }
+
+  .sidebar-meta {
+    @apply text-sm text-gray-500 mt-2;
+  }
+
+  .news-footer {
+    @apply bg-gradient-to-b from-gray-100 to-gray-200 border-t-2 border-black;
+  }
+
+  .footer-section {
+    @apply text-sm text-gray-600;
+  }
+
+  .footer-heading {
+    @apply text-lg font-bold text-black font-serif mb-4;
+  }
+
+  .footer-link {
+    @apply text-gray-600 hover:text-black transition-all duration-300 hover:translate-x-1;
+  }
+  
+  .blog-content {
+    @apply max-w-none text-lg leading-relaxed;
+  }
+  
+  .blog-content h1 {
+    @apply text-4xl font-bold text-black mb-6 font-serif bg-gradient-to-r from-black to-gray-700 bg-clip-text text-transparent;
+  }
+  
+  .blog-content h2 {
+    @apply text-3xl font-bold text-black mb-4 mt-8 font-serif;
+  }
+  
+  .blog-content h3 {
+    @apply text-2xl font-semibold text-black mb-3 mt-6 font-serif;
+  }
+  
+  .blog-content p {
+    @apply text-gray-800 mb-6 leading-relaxed;
+  }
+  
+  .blog-content ul, .blog-content ol {
+    @apply mb-6 pl-6;
+  }
+  
+  .blog-content li {
+    @apply mb-2;
+  }
+  
+  .blog-content blockquote {
+    @apply border-l-4 border-black pl-6 italic text-gray-700 my-8 text-xl bg-gradient-to-r from-gray-50 to-gray-100 p-4 rounded-r-lg;
+  }
+  
+  .blog-content a {
+    @apply text-black underline hover:text-gray-700 transition-all duration-300;
+  }
+  
+  .blog-content code {
+    @apply bg-gray-100 px-2 py-1 rounded text-sm shadow-sm;
+  }
+  
+  .blog-content pre {
+    @apply bg-gray-100 p-4 rounded-lg overflow-x-auto mb-6 shadow-sm;
+  }
+
+  .ad-space {
+    @apply bg-gradient-to-br from-gray-200 to-gray-300 border-2 border-dashed border-gray-400 p-8 text-center text-gray-500 rounded-lg shadow-inner;
+  }
+
+  .breaking-news {
+    @apply bg-gradient-to-r from-red-600 to-red-700 text-white px-4 py-2 text-sm font-semibold shadow-lg;
+  }
+
+  .trending-tag {
+    @apply bg-gradient-to-r from-blue-600 to-blue-700 text-white px-2 py-1 text-xs font-semibold rounded-full shadow-sm hover:shadow-md transition-all duration-300;
+  }
+
+  /* Sleek button styles */
+  .btn-primary {
+    @apply bg-gradient-to-r from-black to-gray-800 text-white px-6 py-3 rounded-lg hover:from-gray-800 hover:to-black transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5;
+  }
+
+  .btn-secondary {
+    @apply bg-white text-black border-2 border-black px-6 py-3 rounded-lg hover:bg-black hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5;
+  }
+
+  /* Sleek input styles */
+  .input-sleek {
+    @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-black focus:ring-2 focus:ring-black focus:ring-opacity-20 transition-all duration-300 shadow-sm hover:shadow-md;
+  }
+
+  /* Sleek card styles */
+  .card-sleek {
+    @apply bg-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1;
+  }
+
+  /* Sleek gradient backgrounds */
+  .gradient-bg {
+    @apply bg-gradient-to-br from-gray-50 via-white to-gray-100;
+  }
+
+  /* Sleek animations */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  /* Sleek hover effects */
+  .hover-lift {
+    @apply transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-lg;
+  }
+
+  .hover-glow {
+    @apply transition-all duration-300 hover:shadow-lg hover:shadow-black/10;
+  }
+
+  /* Sleek text effects */
+  .text-gradient {
+    @apply bg-gradient-to-r from-black via-gray-700 to-black bg-clip-text text-transparent;
+  }
+
+  /* Sleek borders */
+  .border-gradient {
+    @apply border-2 border-transparent bg-gradient-to-r from-black to-gray-600 bg-clip-border;
+  }
+} 
