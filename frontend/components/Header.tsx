@@ -1,45 +1,16 @@
-"use client"
-
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import Link from 'next/link'
 
 export default function Header() {
-  const [isScrolled, setIsScrolled] = useState(false)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
   return (
-    <header className={`news-header fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'shadow-lg bg-white/95 backdrop-blur-md' : 'bg-white'}`}>
+    <header className="fixed top-4 left-4 right-4 z-50 backdrop-blur-sm bg-white/3 shadow-xl rounded-2xl border border-white/10">
       {/* Main header */}
-      <div className="container-wide py-6">
+              <div className="container-wide py-4 px-6">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="news-logo hover-lift">
-            SixFigurePayday
+          <Link href="/" className="hover-lift">
+            <img src="/sixlogo.png" alt="SixFigurePayday" className="h-10 md:h-12" />
           </Link>
-
-          {/* Search bar */}
-          <div className="hidden md:flex flex-1 max-w-md mx-8">
-            <div className="relative w-full">
-              <input
-                type="text"
-                placeholder="Search articles..."
-                className="input-sleek"
-              />
-              <button className="absolute right-3 top-2.5 text-gray-400 hover:text-black transition-all duration-300 hover:scale-110">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </button>
-            </div>
-          </div>
 
           {/* Navigation */}
           <nav className="hidden lg:flex space-x-8">

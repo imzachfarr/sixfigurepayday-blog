@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export default function Hero() {
   return (
-    <section className="bg-white py-12 mt-24">
+    <section className="py-12 mt-24">
       <div className="container-wide">
         {/* Main headline */}
         <div className="mb-12 animate-fade-in-up">
@@ -99,8 +99,10 @@ export default function Hero() {
           </div>
         </div>
 
+
+
         {/* Newsletter signup */}
-        <div className="bg-gradient-to-r from-gray-50 to-gray-100 border-t border-gray-200 py-8 rounded-lg shadow-lg">
+        <div className="bg-gradient-to-r from-white/20 to-white/30 border-t border-white/30 py-8 rounded-lg shadow-2xl backdrop-blur-sm">
           <div className="max-w-2xl mx-auto text-center">
             <h3 className="text-2xl font-bold text-black font-serif mb-4">
               Stay Ahead of the Curve

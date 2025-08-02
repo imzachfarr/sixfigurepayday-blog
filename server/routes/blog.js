@@ -378,10 +378,10 @@ router.get('/', async (req, res) => {
     // If no posts found, return sample posts for testing
     if (posts.length === 0 && page == 1) {
       return res.json({
-        posts: [appleAIStrategyPost, zephryxLegitPost, samplePost, zephryxPost],
+        posts: [appleAIStrategyPost, zephryxLegitPost, samplePost],
         pagination: {
           current: parseInt(page),
-          total: 4,
+          total: 3,
           hasNext: false,
           hasPrev: false
         }
@@ -598,7 +598,7 @@ router.get('/recent/:limit?', async (req, res) => {
 
     // If no posts found, return sample posts
     if (posts.length === 0) {
-      return res.json({ posts: [appleAIStrategyPost, zephryxLegitPost, samplePost, zephryxPost] });
+      return res.json({ posts: [appleAIStrategyPost, zephryxLegitPost, samplePost] });
     }
 
     res.json({ posts });

@@ -1,10 +1,14 @@
 import React from 'react'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import { Metadata } from 'next'
 import Header from '../../../components/Header'
 import Footer from '../../../components/Footer'
 import BannerAd from '../../../components/BannerAd'
 import { safeFormatDate, safeFormatDateShort } from '../../../utils/dateUtils'
+import BlogAnalytics from '../../../components/BlogAnalytics'
+import BlogShareButtons from '../../../components/BlogShareButtons'
+import RelatedPosts from '../../../components/RelatedPosts'
 
 
 
@@ -30,6 +34,77 @@ interface PageProps {
   }
 }
 
+// Generate metadata for blog posts
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5001'}/api/blog/${params.slug}`)
+    
+    if (!response.ok) {
+      return {
+        title: 'Blog Post Not Found',
+        description: 'The requested blog post could not be found.',
+      }
+    }
+
+    const data = await response.json()
+    const post: BlogPost = data.post
+
+    const title = post.seo_title || post.title
+    const description = post.seo_description || post.excerpt
+    const imageUrl = post.image_url || '/og-image.jpg'
+
+    return {
+      title,
+      description,
+      keywords: post.tags.join(', '),
+      openGraph: {
+        title,
+        description,
+        type: 'article',
+        url: `https://sixfigurepayday.com/blog/${post.slug}`,
+        images: [
+          {
+            url: imageUrl,
+            width: 1200,
+            height: 630,
+            alt: post.title,
+          },
+        ],
+        publishedTime: post.published_at,
+        modifiedTime: post.published_at,
+        authors: ['SixFigurePayday Staff'],
+        section: post.category,
+        tags: post.tags,
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title,
+        description,
+        images: [imageUrl],
+      },
+      alternates: {
+        canonical: `https://sixfigurepayday.com/blog/${post.slug}`,
+      },
+      robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+          index: true,
+          follow: true,
+          'max-video-preview': -1,
+          'max-image-preview': 'large',
+          'max-snippet': -1,
+        },
+      },
+    }
+  } catch (error) {
+    return {
+      title: 'Blog Post',
+      description: 'Blog post on SixFigurePayday',
+    }
+  }
+}
+
 export default async function BlogPostPage({ params }: PageProps) {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5001'}/api/blog/${params.slug}`)
@@ -41,8 +116,46 @@ export default async function BlogPostPage({ params }: PageProps) {
     const data = await response.json()
     const post: BlogPost = data.post
 
+    // Structured data for blog post
+    const structuredData = {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": post.title,
+      "description": post.excerpt,
+      "image": post.image_url || "https://sixfigurepayday.com/og-image.jpg",
+      "author": {
+        "@type": "Person",
+        "name": "SixFigurePayday Staff"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "SixFigurePayday",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://sixfigurepayday.com/favicon.png"
+        }
+      },
+      "datePublished": post.published_at,
+      "dateModified": post.published_at,
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": `https://sixfigurepayday.com/blog/${post.slug}`
+      },
+      "articleSection": post.category,
+      "keywords": post.tags.join(", "),
+      "wordCount": post.content.length,
+      "timeRequired": `PT${post.read_time}M`
+    }
+
     return (
       <>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(structuredData),
+          }}
+        />
+        <BlogAnalytics slug={post.slug} category={post.category} tags={post.tags} />
         <Header />
         <main className="bg-white">
           <article className="container-wide py-12">
@@ -143,20 +256,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                 )}
 
                 {/* Share buttons */}
-                <div className="mt-8 pt-8 border-t border-gray-200">
-                  <h3 className="text-lg font-bold text-black font-serif mb-4">Share this article:</h3>
-                  <div className="flex space-x-4">
-                    <button className="bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700 transition-colors">
-                      Twitter
-                    </button>
-                    <button className="bg-blue-800 text-white px-4 py-2 rounded text-sm hover:bg-blue-900 transition-colors">
-                      Facebook
-                    </button>
-                    <button className="bg-blue-500 text-white px-4 py-2 rounded text-sm hover:bg-blue-600 transition-colors">
-                      LinkedIn
-                    </button>
-                  </div>
-                </div>
+                <BlogShareButtons title={post.title} slug={post.slug} category={post.category} />
 
                 {/* Bottom Banner Ad */}
                 <BannerAd variant="bottom" />
@@ -181,29 +281,7 @@ export default async function BlogPostPage({ params }: PageProps) {
 
                 {/* Related posts */}
                 {data.relatedPosts && data.relatedPosts.length > 0 && (
-                  <div>
-                    <h3 className="sidebar-heading">Related Articles</h3>
-                    <div className="space-y-4">
-                      {data.relatedPosts.map((relatedPost: BlogPost) => (
-                        <Link
-                          key={relatedPost.id}
-                          href={`/blog/${relatedPost.slug}`}
-                          className="block group"
-                        >
-                          <article className="sidebar-article">
-                            <h4 className="sidebar-title">
-                              {relatedPost.title}
-                            </h4>
-                            <div className="sidebar-meta">
-                              <span>{safeFormatDateShort(relatedPost.published_at)}</span>
-                              <span>•</span>
-                              <span>{relatedPost.read_time} min read</span>
-                            </div>
-                          </article>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
+                  <RelatedPosts posts={data.relatedPosts} currentPostSlug={post.slug} />
                 )}
 
                 {/* Newsletter signup */}

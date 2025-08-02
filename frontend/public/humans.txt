@@ -1,0 +1,13 @@
+/* TEAM */
+    Developer: SixFigurePayday Team
+    Contact: info@sixfigurepayday.com
+    From: Global
+
+/* SITE */
+    Last update: 2025/01/25
+    Language: English
+    Doctype: HTML5
+    IDE: Visual Studio Code
+    Standards: HTML5, CSS3, JavaScript ES6+
+    Components: Next.js, React, TypeScript
+    Software: Node.js, npm 
