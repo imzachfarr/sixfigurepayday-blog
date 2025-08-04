@@ -33,7 +33,7 @@
   }
 
   .container-wide {
-    @apply max-w-8xl mx-auto px-6;
+    @apply max-w-7xl mx-auto px-6;
   }
   
   /* Real Estate Header Styles */
