@@ -3,121 +3,102 @@ import Link from 'next/link'
 
 export default function Hero() {
   return (
-    <section className="py-12 mt-24">
-      <div className="container-wide">
-        {/* Main headline */}
-        <div className="mb-12 animate-fade-in-up">
-          <h1 className="hero-headline mb-6">
-            The Future of AI-Driven Entrepreneurship
-          </h1>
-          <p className="hero-subheadline mb-8 max-w-4xl">
-            Discover how artificial intelligence is revolutionizing online business and creating unprecedented opportunities for digital entrepreneurs to scale their income.
-          </p>
-          <div className="flex items-center space-x-6">
-            <span className="trending-tag hover:scale-105">TRENDING</span>
-            <span className="text-sm text-gray-500">
-              Updated {new Date().toLocaleDateString('en-US', { 
-                month: 'long', 
-                day: 'numeric', 
-                year: 'numeric' 
-              })}
-            </span>
+    <section className="hero-section pt-20">
+      {/* Main Heading */}
+      <div className="container">
+        <h1 className="hero-headline text-center mb-16">
+          PROPERTIES
+        </h1>
+      </div>
+
+      {/* Hero Content */}
+      <div className="relative">
+        {/* Main Property Image */}
+        <div className="relative w-full h-screen">
+          <img 
+            src="/hero-property.jpg" 
+            alt="Luxury Property" 
+            className="w-full h-full object-cover"
+            onError={(e) => {
+              e.currentTarget.src = 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2075&q=80'
+            }}
+          />
+          
+          {/* Overlay Content */}
+          <div className="absolute inset-0 bg-black bg-opacity-20">
+            <div className="container h-full flex items-end pb-20">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 w-full">
+                {/* Left - Text Overlay */}
+                <div className="lg:col-span-1 flex flex-col justify-end">
+                  <div className="text-white">
+                    <p className="text-orange-500 text-sm font-medium mb-2">
+                      RENT, BUY OR SELL
+                    </p>
+                    <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
+                      Easy way to find your dream property
+                    </h2>
+                  </div>
+                </div>
+
+                {/* Center - Call to Action */}
+                <div className="lg:col-span-1 flex items-end justify-center">
+                  <div className="text-center">
+                    <p className="text-white text-lg font-medium mb-2">
+                      Start the experience
+                    </p>
+                    <div className="flex justify-center">
+                      <svg className="w-6 h-6 text-white animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right - Map Overlay */}
+                <div className="lg:col-span-1 flex items-end justify-end">
+                  <div className="map-overlay max-w-xs">
+                    <div className="mb-4">
+                      <div className="w-full h-32 bg-gray-800 rounded mb-2"></div>
+                      <p className="map-title mb-1">LINCOLN PARK</p>
+                      <p className="map-address">Avenue 01, Lincoln Park, BEUU</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-xs font-medium uppercase tracking-wider text-gray-300">
+                        EXPLORE HOUSE
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
 
-        {/* Featured articles grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-          {/* Main featured article */}
-          <div className="lg:col-span-2">
-            <article className="article-card card-sleek">
-              <div className="mb-4">
-                <span className="category-tag">AI & Technology</span>
-              </div>
-              <h2 className="article-title mb-4">
-                <Link href="/blog/how-ai-revolutionizing-online-money-making-2024">
-                  How AI is Revolutionizing Online Money Making in 2024
-                </Link>
-              </h2>
-              <p className="article-excerpt">
-                Discover the latest AI tools and strategies that are transforming how entrepreneurs make money online. From automated content creation to intelligent marketing systems.
-              </p>
-              <div className="article-meta">
-                <span className="publish-date">December 19, 2024</span>
-                <span className="read-time">5 min read</span>
-                <span className="trending-tag hover:scale-105">FEATURED</span>
-              </div>
-            </article>
-          </div>
-
-          {/* Sidebar articles */}
-          <div className="space-y-6">
-            <h3 className="sidebar-heading">Latest News</h3>
-            
-            <article className="sidebar-article hover-lift">
-              <h4 className="sidebar-title">
-                <Link href="#">ChatGPT-5: What Entrepreneurs Need to Know</Link>
-              </h4>
-              <div className="sidebar-meta">
-                <span>December 18, 2024</span>
-                <span>•</span>
-                <span>3 min read</span>
-              </div>
-            </article>
-
-            <article className="sidebar-article hover-lift">
-              <h4 className="sidebar-title">
-                <Link href="#">The Rise of AI-Powered Dropshipping</Link>
-              </h4>
-              <div className="sidebar-meta">
-                <span>December 17, 2024</span>
-                <span>•</span>
-                <span>4 min read</span>
-              </div>
-            </article>
-
-            <article className="sidebar-article hover-lift">
-              <h4 className="sidebar-title">
-                <Link href="#">Passive Income Strategies for 2024</Link>
-              </h4>
-              <div className="sidebar-meta">
-                <span>December 16, 2024</span>
-                <span>•</span>
-                <span>6 min read</span>
-              </div>
-            </article>
-
-            <article className="sidebar-article hover-lift">
-              <h4 className="sidebar-title">
-                <Link href="#">Digital Marketing Trends to Watch</Link>
-              </h4>
-              <div className="sidebar-meta">
-                <span>December 15, 2024</span>
-                <span>•</span>
-                <span>4 min read</span>
-              </div>
-            </article>
-          </div>
-        </div>
-
-
-
-        {/* Newsletter signup */}
-        <div className="bg-gradient-to-r from-white/20 to-white/30 border-t border-white/30 py-8 rounded-lg shadow-2xl backdrop-blur-sm">
-          <div className="max-w-2xl mx-auto text-center">
-            <h3 className="text-2xl font-bold text-black font-serif mb-4">
-              Stay Ahead of the Curve
-            </h3>
-            <p className="text-gray-600 mb-6">
-              Get the latest AI and business insights delivered to your inbox daily.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <input
-                type="email"
-                placeholder="Enter your email address"
-                className="input-sleek flex-1 max-w-md"
+      {/* Search Section */}
+      <div className="bg-white py-16">
+        <div className="container">
+          <div className="max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <input 
+                type="text" 
+                placeholder="Location" 
+                className="input-modern"
               />
+              <select className="input-modern">
+                <option>Property Type</option>
+                <option>House</option>
+                <option>Apartment</option>
+                <option>Condo</option>
+              </select>
+              <select className="input-modern">
+                <option>Price Range</option>
+                <option>$100k - $200k</option>
+                <option>$200k - $500k</option>
+                <option>$500k+</option>
+              </select>
               <button className="btn-primary">
-                Subscribe
+                Search
               </button>
             </div>
           </div>

@@ -2,211 +2,197 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 @layer base {
   html {
-    font-family: 'Source Sans Pro', system-ui, sans-serif;
+    font-family: 'Inter', system-ui, sans-serif;
     scroll-behavior: smooth;
   }
   
   body {
-    @apply bg-white text-gray-900;
+    @apply bg-white text-black;
     line-height: 1.6;
-    background-image: url('/whitetexture.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    position: relative;
-    min-height: 100vh;
-  }
-
-  body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.3);
-    z-index: -1;
+    font-weight: 400;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
   }
 
   /* Smooth transitions for all interactive elements */
   * {
-    transition: all 0.2s ease-in-out;
+    transition: all 0.3s ease-in-out;
   }
 }
 
 @layer components {
   .container {
-    @apply max-w-6xl mx-auto px-4;
+    @apply max-w-7xl mx-auto px-6;
   }
 
   .container-wide {
-    @apply max-w-7xl mx-auto px-4;
+    @apply max-w-8xl mx-auto px-6;
   }
   
-  .news-header {
-    @apply border-b-2 border-black bg-white shadow-sm backdrop-blur-sm;
+  /* Real Estate Header Styles */
+  .real-estate-header {
+    @apply bg-white border-b border-gray-200 shadow-sm;
   }
 
-  /* Floating nav styles */
-  .floating-nav {
-    @apply backdrop-blur-lg bg-white/70 shadow-xl border border-white/20;
+  .real-estate-logo {
+    @apply text-2xl font-bold text-white bg-orange-500 px-4 py-2 rounded;
   }
 
-  /* Glass effect styles */
-  .glass-nav {
-    @apply backdrop-blur-sm bg-white/10 border border-white/20 shadow-2xl;
-    box-shadow: 
-      0 8px 32px 0 rgba(31, 38, 135, 0.2),
-      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  .real-estate-nav {
+    @apply text-sm font-medium text-gray-600 hover:text-black transition-all duration-300;
   }
 
-  /* Floating nav animation */
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-2px);
-    }
+  .real-estate-nav-active {
+    @apply text-black font-semibold;
   }
 
-  .floating-nav-animate {
-    animation: float 3s ease-in-out infinite;
+  .action-button {
+    @apply text-lg font-bold text-gray-400 hover:text-black transition-all duration-300;
   }
 
-  .news-logo {
-    @apply text-3xl font-bold text-black font-serif hover:scale-105 transform drop-shadow-sm;
+  .action-button-active {
+    @apply text-orange-500 font-bold;
   }
 
-  .news-nav {
-    @apply text-sm font-semibold text-gray-800 hover:text-black transition-all duration-300 relative drop-shadow-sm;
+  .contact-button {
+    @apply bg-orange-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-orange-600 transition-all duration-300;
   }
 
-  .news-nav::after {
-    content: '';
-    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300;
-  }
-
-  .news-nav:hover::after {
-    @apply w-full;
-  }
-
-  .news-nav-active {
-    @apply text-black;
-  }
-
-  .news-nav-active::after {
-    @apply w-full;
+  /* Hero Section Styles */
+  .hero-section {
+    @apply relative min-h-screen bg-white;
   }
 
   .hero-headline {
-    @apply text-4xl md:text-5xl lg:text-6xl font-bold text-black leading-tight font-serif bg-gradient-to-r from-black via-gray-800 to-black bg-clip-text text-transparent;
+    @apply text-6xl md:text-7xl lg:text-8xl font-bold text-black leading-tight;
   }
 
   .hero-subheadline {
-    @apply text-xl md:text-2xl text-gray-600 leading-relaxed font-serif;
+    @apply text-xl md:text-2xl text-gray-600 leading-relaxed;
   }
 
-  .article-card {
-    @apply border-b border-gray-200 pb-8 mb-8 hover:shadow-2xl p-6 rounded-lg transition-all duration-300 bg-white/10 backdrop-blur-sm border border-white/20;
+  .hero-cta {
+    @apply text-white text-lg font-medium flex items-center space-x-2 hover:opacity-80 transition-all duration-300;
   }
 
-  .article-title {
-    @apply text-2xl md:text-3xl font-bold text-black leading-tight font-serif hover:text-gray-700 transition-all duration-300;
+  /* Property Card Styles */
+  .property-card {
+    @apply bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300;
   }
 
-  .article-title:hover {
-    @apply transform translate-x-1;
+  .property-image {
+    @apply w-full h-64 object-cover;
   }
 
-  .article-excerpt {
-    @apply text-lg text-gray-600 leading-relaxed mt-3;
+  .property-content {
+    @apply p-6;
   }
 
-  .article-meta {
-    @apply text-sm text-gray-500 mt-4 flex items-center space-x-4;
+  .property-title {
+    @apply text-xl font-semibold text-black leading-tight;
   }
 
-  .category-tag {
-    @apply text-xs font-semibold text-black uppercase tracking-wider bg-gradient-to-r from-gray-100 to-gray-200 px-3 py-1 rounded-full shadow-sm;
+  .property-price {
+    @apply text-2xl font-bold text-orange-500;
   }
 
-  .read-time {
-    @apply text-sm text-gray-500;
+  .property-location {
+    @apply text-gray-600 text-sm;
   }
 
-  .publish-date {
-    @apply text-sm text-gray-500;
+  /* Button Styles */
+  .btn-primary {
+    @apply bg-orange-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-600 transition-all duration-300 shadow-lg hover:shadow-xl;
   }
 
-  .featured-image {
-    @apply w-full h-64 md:h-80 object-cover mb-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300;
+  .btn-secondary {
+    @apply bg-white text-black border-2 border-black px-8 py-3 rounded-lg font-semibold hover:bg-black hover:text-white transition-all duration-300;
   }
 
-  .sidebar-heading {
-    @apply text-xl font-bold text-black font-serif mb-4 relative;
+  .btn-outline {
+    @apply border-2 border-gray-300 text-gray-700 px-6 py-2 rounded-lg font-medium hover:border-black hover:text-black transition-all duration-300;
   }
 
-  .sidebar-heading::after {
-    content: '';
-    @apply absolute bottom-0 left-0 w-12 h-0.5 bg-gradient-to-r from-black to-gray-400;
+  /* Form Styles */
+  .input-modern {
+    @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500 focus:ring-opacity-20 transition-all duration-300;
   }
 
-  .sidebar-article {
-    @apply border-b border-gray-200 pb-4 mb-4 last:border-b-0 hover:bg-white/20 p-3 rounded-lg transition-all duration-300 backdrop-blur-sm;
+  /* Card Styles */
+  .card-modern {
+    @apply bg-white rounded-lg shadow-lg border border-gray-200 transition-all duration-300 hover:shadow-xl;
   }
 
-  .sidebar-title {
-    @apply text-lg font-semibold text-black leading-tight hover:text-gray-700 transition-all duration-300;
+  /* Text Styles */
+  .text-gradient {
+    @apply bg-gradient-to-r from-black to-gray-700 bg-clip-text text-transparent;
   }
 
-  .sidebar-title:hover {
-    @apply transform translate-x-1;
+  .text-orange {
+    @apply text-orange-500;
   }
 
-  .sidebar-meta {
-    @apply text-sm text-gray-500 mt-2;
+  /* Map Overlay Styles */
+  .map-overlay {
+    @apply bg-black bg-opacity-80 text-white p-4 rounded-lg;
   }
 
-  .news-footer {
-    @apply bg-gradient-to-b from-white/20 to-white/30 border-t-2 border-black backdrop-blur-sm shadow-2xl;
+  .map-title {
+    @apply text-sm font-semibold uppercase tracking-wider;
+  }
+
+  .map-address {
+    @apply text-xs text-gray-300;
+  }
+
+  /* Navigation Styles */
+  .nav-link {
+    @apply text-sm font-medium text-gray-600 hover:text-black transition-all duration-300;
+  }
+
+  .nav-link-active {
+    @apply text-black font-semibold;
+  }
+
+  /* Footer Styles */
+  .footer-modern {
+    @apply bg-gray-900 text-white;
   }
 
   .footer-section {
-    @apply text-sm text-gray-600;
+    @apply text-sm text-gray-400;
   }
 
   .footer-heading {
-    @apply text-lg font-bold text-black font-serif mb-4;
+    @apply text-lg font-semibold text-white mb-4;
   }
 
   .footer-link {
-    @apply text-gray-600 hover:text-black transition-all duration-300 hover:translate-x-1;
+    @apply text-gray-400 hover:text-white transition-all duration-300;
   }
-  
+
+  /* Blog Content Styles */
   .blog-content {
     @apply max-w-none text-lg leading-relaxed;
   }
   
   .blog-content h1 {
-    @apply text-4xl font-bold text-black mb-6 font-serif bg-gradient-to-r from-black to-gray-700 bg-clip-text text-transparent;
+    @apply text-4xl font-bold text-black mb-6;
   }
   
   .blog-content h2 {
-    @apply text-3xl font-bold text-black mb-4 mt-8 font-serif;
+    @apply text-3xl font-semibold text-black mb-4 mt-8;
   }
   
   .blog-content h3 {
-    @apply text-2xl font-semibold text-black mb-3 mt-6 font-serif;
+    @apply text-2xl font-semibold text-black mb-3 mt-6;
   }
   
   .blog-content p {
@@ -222,93 +208,52 @@
   }
   
   .blog-content blockquote {
-    @apply border-l-4 border-black pl-6 italic text-gray-700 my-8 text-xl bg-gradient-to-r from-white/20 to-white/30 p-4 rounded-r-lg backdrop-blur-sm shadow-lg;
+    @apply border-l-4 border-orange-500 pl-6 italic text-gray-700 my-8 text-xl bg-gray-50 p-4 rounded-r-lg;
   }
   
   .blog-content a {
-    @apply text-black underline hover:text-gray-700 transition-all duration-300;
+    @apply text-orange-500 underline hover:text-orange-600 transition-all duration-300;
   }
   
   .blog-content code {
-    @apply bg-gray-100 px-2 py-1 rounded text-sm shadow-sm;
+    @apply bg-gray-100 px-2 py-1 rounded text-sm;
   }
   
   .blog-content pre {
-    @apply bg-gray-100 p-4 rounded-lg overflow-x-auto mb-6 shadow-sm;
+    @apply bg-gray-100 p-4 rounded-lg overflow-x-auto mb-6;
   }
 
-  .ad-space {
-    @apply bg-gradient-to-br from-gray-200 to-gray-300 border-2 border-dashed border-gray-400 p-8 text-center text-gray-500 rounded-lg shadow-inner;
+  /* Banner Ad Styles */
+  .banner-ad-modern {
+    @apply bg-white border border-gray-200 rounded-lg overflow-hidden shadow-lg;
   }
 
-  .breaking-news {
-    @apply bg-gradient-to-r from-red-600 to-red-700 text-white px-4 py-2 text-sm font-semibold shadow-lg;
+  /* Utility Classes */
+  .text-orange-500 {
+    color: #f97316;
   }
 
-  .trending-tag {
-    @apply bg-gradient-to-r from-blue-600 to-blue-700 text-white px-2 py-1 text-xs font-semibold rounded-full shadow-sm hover:shadow-md transition-all duration-300;
+  .bg-orange-500 {
+    background-color: #f97316;
   }
 
-  /* Sleek button styles */
-  .btn-primary {
-    @apply bg-gradient-to-r from-black to-gray-800 text-white px-6 py-3 rounded-lg hover:from-gray-800 hover:to-black transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5;
+  .border-orange-500 {
+    border-color: #f97316;
   }
 
-  .btn-secondary {
-    @apply bg-white text-black border-2 border-black px-6 py-3 rounded-lg hover:bg-black hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5;
+  .hover\:bg-orange-600:hover {
+    background-color: #ea580c;
   }
 
-  /* Sleek input styles */
-  .input-sleek {
-    @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-black focus:ring-2 focus:ring-black focus:ring-opacity-20 transition-all duration-300 shadow-sm hover:shadow-md;
+  .hover\:text-orange-600:hover {
+    color: #ea580c;
   }
 
-  /* Sleek card styles */
-  .card-sleek {
-    @apply bg-white/20 backdrop-blur-sm rounded-lg shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-white/30;
+  .focus\:border-orange-500:focus {
+    border-color: #f97316;
   }
 
-  .card-sleek:hover {
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1);
-  }
-
-  /* Sleek gradient backgrounds */
-  .gradient-bg {
-    @apply bg-gradient-to-br from-gray-50 via-white to-gray-100;
-  }
-
-  /* Sleek animations */
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .animate-fade-in-up {
-    animation: fadeInUp 0.6s ease-out;
-  }
-
-  /* Sleek hover effects */
-  .hover-lift {
-    @apply transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-lg;
-  }
-
-  .hover-glow {
-    @apply transition-all duration-300 hover:shadow-lg hover:shadow-black/10;
-  }
-
-  /* Sleek text effects */
-  .text-gradient {
-    @apply bg-gradient-to-r from-black via-gray-700 to-black bg-clip-text text-transparent;
-  }
-
-  /* Sleek borders */
-  .border-gradient {
-    @apply border-2 border-transparent bg-gradient-to-r from-black to-gray-600 bg-clip-border;
+  .focus\:ring-orange-500:focus {
+    --tw-ring-color: #f97316;
   }
 } 

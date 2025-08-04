@@ -7,7 +7,7 @@ interface BannerAdProps {
 
 export default function BannerAd({ className = '', variant = 'middle' }: BannerAdProps) {
   const getAdStyles = () => {
-    const baseStyles = "w-full bg-white/10 backdrop-blur-sm border border-white/30 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl"
+    const baseStyles = "w-full bg-white border border-gray-200 rounded-lg overflow-hidden shadow-lg"
     
     switch (variant) {
       case 'top':
@@ -22,11 +22,11 @@ export default function BannerAd({ className = '', variant = 'middle' }: BannerA
   }
 
   return (
-    <div className={`banner-ad-container ${getAdStyles()} ${className}`}>
+    <div className={`banner-ad-modern ${getAdStyles()} ${className}`}>
       {/* Clickable Banner Ad */}
       <div className="relative w-full h-20 md:h-28 lg:h-32 overflow-hidden rounded-lg">
         {/* Ad Label */}
-        <div className="absolute top-2 left-2 text-xs text-gray-500 font-medium bg-white/90 backdrop-blur-sm px-2 py-1 rounded z-10 shadow-sm">
+        <div className="absolute top-2 left-2 text-xs text-gray-500 font-medium bg-white/90 px-2 py-1 rounded z-10 shadow-sm">
           Advertisement
         </div>
         
